@@ -1,7 +1,7 @@
 ## Introduction
 - Checkout the deployed app by clicking [here](https://divy-codes.github.io/assignment/)
 - This is merely an assignment undertaken as part of a vetting procedure by a company.
-- I have not named the company anywhere as people try to cheat by cloning the Github Repo and submitting as their work.
+- I have not named the company anywhere as people try to cheat by searching the project using company's name and consequently cloning the Github Repo.
 - Needless to say (and I said it 🤡), the UI and cards are rendering dynamically using JS instead of being hard-coded into HTML
 
 ## Key Highlight Javascipt
