@@ -20,6 +20,11 @@ async function getData(endpoint) {
     // Write and render the HTML once we have the data to populate it. Save the data in variable productCategories
     productCategories = writeHTML(data.categories);
     render(state.activeCategory, productCategories);
+
+    //Add carousel scroll event listener once we have the rendered HTML
+    const productImageWrappers = document.querySelectorAll('.productImageWrapper');
+    handleCarouselSlide(productImageWrappers);
+
   } catch (error) {
     console.error('Error fetching data:', error);
   }
@@ -63,6 +68,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // ============= HELPER FUNCTIONS TO RENDER HTML ==================
 
+function handleCarouselSlide(productImageWrappers) {
+  productImageWrappers.forEach(wrapper => {
+    wrapper.addEventListener('scroll', (e) => {
+      let scrollPos = wrapper.scrollLeft;
+      const carouselIndicators = wrapper.previousElementSibling;
+      handleCarouselScroll(scrollPos, carouselIndicators);
+    })
+  })
+}
+
+
+function handleCarouselScroll(scrollPos, carouselIndicators) {
+  if (scrollPos < 130) {
+    carouselIndicators.children[0].classList.add('active');
+    carouselIndicators.children[1].classList.remove('active');
+  } else {
+    carouselIndicators.children[0].classList.remove('active');
+    carouselIndicators.children[1].classList.add('active');
+  }
+}
+
+
 function writeHTML(data) {
   data.forEach((category) => {
     // Make a Card container for every prduct category
@@ -103,7 +130,22 @@ function makeProductCard(cardData) {
 
   // Card
   const card = document.createElement('div');
-  card.classList.add('card');
+  card.classList.add('card')
+
+  //imageContainer
+  const imageContainer = document.createElement('div');
+  imageContainer.classList.add('imageContainer');
+
+  // Carousel Indicators
+  const carouselIndicators=document.createElement('div');
+  carouselIndicators.classList.add('carouselIndicators');
+
+  //Indicator
+  const indicatorOne=document.createElement('div');
+  indicatorOne.classList.add('indicator');
+  indicatorOne.classList.add('active');
+  const indicatorTwo=document.createElement('div');
+  indicatorTwo.classList.add('indicator');
 
   //productImageWrapper
   const productImageWrapper = document.createElement('div');
@@ -118,6 +160,11 @@ function makeProductCard(cardData) {
   const productImage = document.createElement('img');
   productImage.setAttribute('src', image);
   productImage.setAttribute('alt', 'Product Image');
+
+  //Image 2
+  const secondImage = document.createElement('img');
+  secondImage.setAttribute('src', second_image);
+  secondImage.setAttribute('alt', 'Second Product Image');
 
   // productDetails
   const productDetails = document.createElement('div');
@@ -161,15 +208,22 @@ function makeProductCard(cardData) {
   addToCart.classList.add('addToCart');
   addToCart.textContent = 'Add to Cart';
 
+
   productImageWrapper.appendChild(productImage);
-  badge.textContent != '' && productImageWrapper.appendChild(badge);
+  second_image!='empty' && productImageWrapper.appendChild(secondImage);
+  second_image!='empty' && imageContainer.appendChild(carouselIndicators);
+  carouselIndicators.appendChild(indicatorOne);
+  carouselIndicators.appendChild(indicatorTwo);
+  badge_text != null && productImageWrapper.appendChild(badge);
   productDetails.appendChild(productTitle);
   productDetails.appendChild(bullet);
   productDetails.appendChild(brand);
   priceInfo.appendChild(discountedPrice);
   priceInfo.appendChild(actualPrice);
   priceInfo.appendChild(discount);
-  card.appendChild(productImageWrapper);
+  card.appendChild(imageContainer);
+  imageContainer.appendChild((productImageWrapper))
+  // card.appendChild(productImageWrapper);
   card.appendChild(productDetails);
   card.appendChild(priceInfo);
   card.appendChild(addToCart);

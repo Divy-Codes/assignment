@@ -100,20 +100,64 @@ body {
   width: 14rem;
   aspect-ratio: 3/4;
   border-radius: inherit;
-  /* background-color: green; */
+  position: relative; /*for the badge*/
+}
+
+.imageContainer{
+  position:relative; /*For the carousel position indicators*/
+  background-color: red;
+  width: inherit;
+  height: inherit;
+  aspect-ratio: inherit;
+}
+
+/*Carousel position indicators*/
+.carouselIndicators{
+  position: absolute;
+  bottom:0.5rem;
+  left:50%;
+  transform: translateX(-100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap:0.5rem;
+}
+
+.indicator{
+  height: 0.5rem;
+  width: 0.5rem;
+  border:1px solid #555;
+  border-radius: 50%;
+  background-color: #555;
+}
+
+.indicator.active{
+  background-color: #fff;
 }
 
 .productImageWrapper {
+  display:flex;
+  align-items: center;
+  overflow-x: scroll;
   width: inherit;
   aspect-ratio: inherit;
   border-radius: inherit;
-  position: relative;
+  /*position: relative;*/
 }
 
 .productImageWrapper > img {
+  /*Both Images take the entire width of container*/
+  flex-basis: 100%;
+  flex-grow: 1;
+  flex-shrink: 0;
   height: 100%;
   width: 100%;
+  width: inherit;
   border-radius: inherit;
+}
+
+.productImageWrapper::-webkit-scrollbar{
+  display: none;
 }
 
 .badge {
