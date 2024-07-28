@@ -105,7 +105,7 @@ body {
 
 .imageContainer{
   position:relative; /*For the carousel position indicators*/
-  background-color: red;
+  background-color: #f2f2f2;
   width: inherit;
   height: inherit;
   aspect-ratio: inherit;
